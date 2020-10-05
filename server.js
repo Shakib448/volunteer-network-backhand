@@ -37,13 +37,14 @@ client.connect((err) => {
       });
     });
 
-    app.get("/event/:id", (req, res) => {
-      volunteerCollection
-        .find({ _id: ObjectId(req.params.id) })
-        .toArray((err, documents) => {
-          res.send(documents);
-        });
-    });
+    // app.get("/event/:id", (req, res) => {
+    //   console.log(req.params.id);
+    //   volunteerCollection
+    //     .find({ _id: ObjectId(req.params.id) })
+    //     .toArray((err, documents) => {
+    //       res.send(documents);
+    //     });
+    // });
   });
   console.log("database contented");
 });
