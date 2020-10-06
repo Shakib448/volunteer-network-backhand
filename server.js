@@ -28,7 +28,7 @@ client.connect((err) => {
   app.post("/addVolunteerData", (req, res) => {
     const volunteerData = req.body.data;
     console.log(volunteerData);
-    // volunteerCollection.insertMany(volunteerData).then((result) => {
+    // volunteerCollection.insertOne(volunteerData).then((result) => {
     //   console.log(result.insertedCount);
     //   res.send(result.insertedCount.toString());
 
@@ -43,9 +43,18 @@ client.connect((err) => {
     });
   });
 
+  //delete
+
+  app.delete("/delete/:id", (req, res) => {
+    eventSelectedData
+      .deleteOne({ _id: ObjectId(req.params.id) })
+      .then((result) => {
+        res.send(result.insertedCount > 0);
+      });
+  });
+
   // Get
   app.get("/volunteer/event", (req, res) => {
-    console.log(req.query.email);
     eventSelectedData.find({ email: req.query.email }).toArray((err, doc) => {
       res.send(doc);
     });
