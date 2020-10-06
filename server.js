@@ -21,6 +21,13 @@ client.connect((err) => {
     .db("volunteer")
     .collection("volunteerEntry");
 
+  const eventSelectedData = client.db("volunteer").collection("eventSelect");
+
+  app.post("/selectedEvent", (req, res) => {
+    const selectEvent = req.body.data;
+    console.log(selectEvent);
+  });
+
   app.post("/addVolunteerData", (req, res) => {
     const volunteerData = req.body.data;
     console.log(volunteerData);
@@ -32,8 +39,8 @@ client.connect((err) => {
     // });
 
     app.get("/events", (req, res) => {
-      volunteerCollection.find({}).toArray((err, documents) => {
-        res.send(documents);
+      volunteerCollection.find({}).toArray((err, doc) => {
+        res.send(doc);
       });
     });
 
