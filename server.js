@@ -25,7 +25,23 @@ client.connect((err) => {
 
   app.post("/selectedEvent", (req, res) => {
     const selectEvent = req.body.data;
+    // res.send(result.insertedCount > 0);
+    eventSelectedData.insertOne(
+      { timestamp: new Date(), selectEvent },
+      (err, result) => {
+        console.log(result);
+        console.log(err);
+        res.send("ok");
+      }
+    );
+
     console.log(selectEvent);
+  });
+
+  app.get("/volunteer/event", (req, res) => {
+    eventSelectedData.find().toArray((err, doc) => {
+      res.send(doc);
+    });
   });
 
   app.post("/addVolunteerData", (req, res) => {
