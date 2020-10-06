@@ -53,22 +53,14 @@ client.connect((err) => {
 
     // res.status(200).send(result.insertedCount > 0);
     // });
-
-    app.get("/events", (req, res) => {
-      volunteerCollection.find({}).toArray((err, doc) => {
-        res.send(doc);
-      });
-    });
-
-    // app.get("/event/:id", (req, res) => {
-    //   console.log(req.params.id);
-    //   volunteerCollection
-    //     .find({ _id: ObjectId(req.params.id) })
-    //     .toArray((err, documents) => {
-    //       res.send(documents);
-    //     });
-    // });
   });
+
+  app.get("/events", (req, res) => {
+    volunteerCollection.find({}).toArray((err, doc) => {
+      res.send(doc);
+    });
+  });
+
   console.log("database contented");
 });
 
