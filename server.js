@@ -23,26 +23,7 @@ client.connect((err) => {
 
   const eventSelectedData = client.db("volunteer").collection("eventSelect");
 
-  app.post("/selectedEvent", (req, res) => {
-    const selectEvent = req.body.data;
-    // res.send(result.insertedCount > 0);
-    eventSelectedData.insertOne(
-      { timestamp: new Date(), selectEvent },
-      (err, result) => {
-        console.log(result);
-        console.log(err);
-        res.send("ok");
-      }
-    );
-
-    console.log(selectEvent);
-  });
-
-  app.get("/volunteer/event", (req, res) => {
-    eventSelectedData.find().toArray((err, doc) => {
-      res.send(doc);
-    });
-  });
+  //Post
 
   app.post("/addVolunteerData", (req, res) => {
     const volunteerData = req.body.data;
@@ -51,8 +32,23 @@ client.connect((err) => {
     //   console.log(result.insertedCount);
     //   res.send(result.insertedCount.toString());
 
-    // res.status(200).send(result.insertedCount > 0);
+    //   // res.status(200).send(result.insertedCount > 0);
     // });
+  });
+
+  app.post("/selectedEvent", (req, res) => {
+    const selectEvent = req.body.data;
+    eventSelectedData.insertOne(selectEvent).then((result) => {
+      res.send(result.insertedCount > 0);
+    });
+  });
+
+  // Get
+  app.get("/volunteer/event", (req, res) => {
+    console.log(req.query.email);
+    eventSelectedData.find({ email: req.query.email }).toArray((err, doc) => {
+      res.send(doc);
+    });
   });
 
   app.get("/events", (req, res) => {
